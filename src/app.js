@@ -6,8 +6,12 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+const session = require('koa-generic-session')
+const redisStore = require('koa-redis')
+
 const index = require('./routes/index')
-const users = require('./routes/users')
+const userApiRouter = require('./routes/users')
+const { REDIS_CONF } = require('./conf/db')
 
 // error handler //错误提升到页面
 onerror(app)
@@ -28,6 +32,25 @@ app.use(
   })
 )
 
+//session 配置 加密
+app.keys = ['Uisdf_12@//#end']
+app.use(
+  session({
+    key: 'weibo_sid', //cookie name mor是 'koa_sid'
+    prefix: 'weibo:sess', //redis key 的前缀 默认是 'koa:sess
+    cookie: {
+      path: '/', //所有目录给可以访问
+      httpOnly: true, //客服端无权修改 Userid
+      maxAge: 24 * 60 * 60 * 1000 //ms 过期时间
+    },
+    // ttl:  //redis过期时间, 不写默认与 maxAge 相同
+    store: redisStore({
+      //把信息存放到redisStore里
+      all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
+    })
+  })
+)
+
 // logger
 app.use(async (ctx, next) => {
   const start = new Date()
@@ -38,7 +61,7 @@ app.use(async (ctx, next) => {
 
 // routes
 app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
