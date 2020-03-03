@@ -9,6 +9,6 @@ module.exports = {
     STRING: Sequelize.STRING,  //string
     DECIMAL: Sequelize.DECIMAL,  //只可以存 0~9
     TEXT: Sequelize.TEXT,
-    INTEGER: Sequelize.INETEGER,  //整型
+    INTEGER: Sequelize.INTEGER,  //整型
     BOOLEAN: Sequelize.BOOLEAN  //布尔类型
 }

@@ -6,11 +6,16 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
+const bodyParser = require('body-parser');
+//handle request entity too large
 
-const index = require('./routes/index')
-const userApiRouter = require('./routes/users')
+const InitRouter = require('./cache/_whenLoadRouter')
+// const index = require('./routes/index')
+// const userApiRouter = require('./routes/api/users')
+// const userViewRouter = require('./routes/view/user')
 const { REDIS_CONF } = require('./conf/db')
 
 // error handler //错误提升到页面
@@ -31,6 +36,9 @@ app.use(
     extension: 'pug'
   })
 )
+
+// app.use(bodyParser.json({limit:'50mb'}));
+// app.use(bodyParser.urlencoded({limit:'50mb',extended:true}));
 
 //session 配置 加密
 app.keys = ['Uisdf_12@//#end']
@@ -60,8 +68,7 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
+InitRouter.initLoadRouters(app)
 
 // error-handling
 app.on('error', (err, ctx) => {

@@ -4,5 +4,6 @@
 */
 
 module.exports = {
-    DEFAULT_PICTURE: 'https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png'
+    DEFAULT_PICTURE: 'https://gw.alicdn.com/tps/TB1W_X6OXXXXXcZXVXXXXXXXXXX-400-400.png',
+    PAGE_SIZE: 5
 }

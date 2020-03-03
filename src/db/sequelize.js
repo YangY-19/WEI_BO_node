@@ -9,7 +9,8 @@ const  { host, user, password, database } = MYSQL_CONF
 
 const conf = {
     host,
-    dialect: 'mysql'
+    dialect: 'mysql',
+    timezone: '+08:00'
 }
 
 if (isTest) {
@@ -26,7 +27,7 @@ if (isPord) {
     }
 }
 
-const sequelize = new Sequelize(database, user, password, conf)
+const sequelize = new Sequelize(database, user, password, conf )//在时间方面会加8个小时(北京时间)
 
 
 module.exports = sequelize

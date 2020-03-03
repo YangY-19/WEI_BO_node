@@ -27,7 +27,7 @@ class BaseModel {
 class SuccessModel extends BaseModel {
     constructor(data) {
         super({ //super 调用父类constructor
-            code: 200,
+            code: 10000,
             data
         })
     }

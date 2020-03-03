@@ -11,5 +11,6 @@ module.exports = {
   isProd: ENV === 'production',
   notProd: ENV !== 'production',
   isTest: ENV === 'test',
-  notTest: ENV !== 'test'
+  notTest: ENV !== 'test',
+  devDomainName: 'http://localhost:8088'
 }
