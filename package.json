@@ -26,7 +26,7 @@
     "mysql2": "^2.1.0",
     "nodemon": "^1.19.4",
     "pug": "^2.0.3",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "regenerator-runtime": "^0.13.3",
     "require-directory": "^2.1.1",
     "sequelize": "^5.21.4",
